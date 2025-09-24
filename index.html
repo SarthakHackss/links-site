@@ -5,28 +5,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Links - Sarthak Patil</title>
 <style>
-  /* Background Gradient & Font */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    margin: 0;
     font-family: 'Segoe UI', sans-serif;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #1b0033, #000);
     overflow: hidden;
     color: white;
+    position: relative;
+    background: #000;
   }
 
-  /* Stars Animation */
+  /* Moving Cosmic Background */
+  body::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 30%, rgba(142,45,226,0.3), transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255,0,128,0.3), transparent 50%);
+    animation: moveNebula 30s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes moveNebula {
+    0% { transform: translate(0,0) rotate(0deg); }
+    100% { transform: translate(50px,50px) rotate(360deg); }
+  }
+
+  /* Stars */
   .star {
     position: absolute;
-    width: 2px;
-    height: 2px;
     background: white;
     border-radius: 50%;
-    animation: fall 5s linear infinite;
-    opacity: 0.8;
+    animation: fall linear infinite, twinkle ease-in-out infinite alternate;
+    z-index: 1;
   }
 
   @keyframes fall {
@@ -34,23 +51,33 @@
     100% { transform: translateY(100vh); opacity: 0; }
   }
 
-  /* Container for buttons */
+  @keyframes twinkle {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+  }
+
+  /* Container */
   .container {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    z-index: 1;
+    z-index: 2;
     text-align: center;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
   }
 
   h1 {
-    margin-bottom: 40px;
-    font-size: 2.5rem;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px #8e2de2, 0 0 20px #ff0080;
   }
 
-  /* Cosmic buttons */
+  /* Buttons */
   .btn {
-    padding: 15px 30px;
+    padding: 15px;
     font-size: 1.2rem;
     text-decoration: none;
     color: white;
@@ -59,12 +86,46 @@
     background: linear-gradient(45deg, #8e2de2, #4a00e0);
     box-shadow: 0 0 20px #8e2de2, 0 0 40px #4a00e0;
     transition: all 0.3s ease;
+    display: block;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Glowing pulse on hover */
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
+    transform: scale(0);
+    transition: transform 0.5s ease;
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  .btn:hover::before {
+    transform: scale(1);
   }
 
   .btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 30px #ff0080, 0 0 60px #ff0080;
+    transform: scale(1.08);
+    box-shadow: 0 0 40px #ff0080, 0 0 80px #ff0080;
     background: linear-gradient(45deg, #ff0080, #7928ca);
+  }
+
+  .btn span {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    h1 { font-size: 1.6rem; }
+    .btn { font-size: 1rem; padding: 12px; }
   }
 </style>
 </head>
@@ -72,26 +133,29 @@
 
 <div class="container">
   <h1>Sarthak Patil</h1>
-  <a class="btn" href="https://youtube.com/" target="_blank">YouTube</a>
-  <a class="btn" href="https://github.com/" target="_blank">GitHub</a>
-  <a class="btn" href="https://linkedin.com/" target="_blank">LinkedIn</a>
-  <a class="btn" href="https://instagram.com/" target="_blank">Instagram</a>
-  <a class="btn" href="https://sarthakpatil.me/blog" target="_blank">Blog</a>
-  <a class="btn" href="https://amazon.in/" target="_blank">Amazon</a>
-  <a class="btn" href="https://flipkart.com/" target="_blank">Flipkart</a>
+  <a class="btn" href="https://youtube.com/" target="_blank"><span>YouTube</span></a>
+  <a class="btn" href="https://github.com/" target="_blank"><span>GitHub</span></a>
+  <a class="btn" href="https://linkedin.com/" target="_blank"><span>LinkedIn</span></a>
+  <a class="btn" href="https://instagram.com/" target="_blank"><span>Instagram</span></a>
+  <a class="btn" href="https://sarthakpatil.me/blog" target="_blank"><span>Blog</span></a>
+  <a class="btn" href="https://amazon.in/" target="_blank"><span>Amazon</span></a>
+  <a class="btn" href="https://flipkart.com/" target="_blank"><span>Flipkart</span></a>
 </div>
 
 <!-- Stars -->
 <script>
-  const starsCount = 100;
+  const starsCount = 180;
   for(let i=0;i<starsCount;i++){
     let star = document.createElement('div');
     star.className = 'star';
     star.style.left = Math.random()*100 + 'vw';
     star.style.top = Math.random()*100 + 'vh';
-    star.style.width = Math.random()*3 + 'px';
-    star.style.height = star.style.width;
+    let size = Math.random()*3 + 1;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
     star.style.animationDuration = (2 + Math.random()*3) + 's';
+    star.style.animationDelay = Math.random()*5 + 's';
+    star.style.opacity = Math.random()*0.8 + 0.2;
     document.body.appendChild(star);
   }
 </script>
