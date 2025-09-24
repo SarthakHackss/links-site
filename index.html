@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Links - Sarthak Patil</title>
+<style>
+  /* Background Gradient & Font */
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1b0033, #000);
+    overflow: hidden;
+    color: white;
+  }
+
+  /* Stars Animation */
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: fall 5s linear infinite;
+    opacity: 0.8;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-10px); opacity: 0.8; }
+    100% { transform: translateY(100vh); opacity: 0; }
+  }
+
+  /* Container for buttons */
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1;
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+  }
+
+  /* Cosmic buttons */
+  .btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: white;
+    border: 2px solid #8e2de2;
+    border-radius: 12px;
+    background: linear-gradient(45deg, #8e2de2, #4a00e0);
+    box-shadow: 0 0 20px #8e2de2, 0 0 40px #4a00e0;
+    transition: all 0.3s ease;
+  }
+
+  .btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px #ff0080, 0 0 60px #ff0080;
+    background: linear-gradient(45deg, #ff0080, #7928ca);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Sarthak Patil</h1>
+  <a class="btn" href="https://youtube.com/" target="_blank">YouTube</a>
+  <a class="btn" href="https://github.com/" target="_blank">GitHub</a>
+  <a class="btn" href="https://linkedin.com/" target="_blank">LinkedIn</a>
+  <a class="btn" href="https://instagram.com/" target="_blank">Instagram</a>
+  <a class="btn" href="https://sarthakpatil.me/blog" target="_blank">Blog</a>
+  <a class="btn" href="https://amazon.in/" target="_blank">Amazon</a>
+  <a class="btn" href="https://flipkart.com/" target="_blank">Flipkart</a>
+</div>
+
+<!-- Stars -->
+<script>
+  const starsCount = 100;
+  for(let i=0;i<starsCount;i++){
+    let star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random()*100 + 'vw';
+    star.style.top = Math.random()*100 + 'vh';
+    star.style.width = Math.random()*3 + 'px';
+    star.style.height = star.style.width;
+    star.style.animationDuration = (2 + Math.random()*3) + 's';
+    document.body.appendChild(star);
+  }
+</script>
+
+</body>
+</html>
